@@ -1,36 +1,52 @@
-$function() {
-
-    getQuote();
-    $.('.trigger').click(function() {
-        getQuote();
-    })
+$(document).ready(function() {
+    var author;
+    var quote;
+    var tweetText;
+    var tweet;
     var tweetLink = "https://twitter.com/intent/tweet?text=";
+    var getURL = "http://api.forismatic.com/api/1.0/";
 
-    var quoteUrl = "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1";
-
-    function getQuote() {
-    $.getJSON(quoteUrl, createTweet);
+    function getNewQuote() {
+        $.ajax ({
+            url: getURL, 
+            jsonp: 'jsonp',
+            dataType: 'jsonp',
+            data: {
+                method: 'getQuote',
+                lang: 'en',
+                format: 'jsonp'
+            },
+            success: function createTweet(response) {
+                author = response.quoteAuthor;
+                quote = response.quoteText;
+                var noAuthor = 'Unknown';
+                var displayAuthor = author || noAuthor;
+                tweetText = "Quote of the day - " + quote + " Author: " + displayAuthor ;
+                tweet = tweetLink + encodeURIComponent(tweetText);
+                if (tweetText.lenght > 140) {
+                    getNewQuote();
+                } else {
+                    $('.quote').text(quote);
+                    if (author) {
+                        $('.author').text(author);
+                    } else {
+                        $('.author').text(noAuthor);
+                    }
+                    $('.tweet').attr('href', tweet);
+                }
+            }
+        });        
     }
-
-    function createTweet(input) {
-        var data = input[0];
-        var quoteText = $(data.content).text().trim();
-        var quoteAuthor = data.title;
-    
-        if (!quoteAuthor.length) {
-            quoteAuthor = "Unnown author";
-        }
-    
-        var tweetText = "Quote of the day - " + quoteText + " Author: " + quoteAuthor;
-    
-        if (tweetText.length > 140 ) {
-            getQuote();
-        } else {
-            var tweet = tweetLink + encodeURIComponent(tweetText);
-            $('.quote').text(quoteText);
-            $('.author').text('Author: ' + quoteAuthor);
-            $('.tweet').attr('href', tweet);
-        }
-    }
-
+    getNewQuote();
+    $('.trigger').on('click', function() {
+       getNewQuote(); 
+    });
+    $('.tweeter').on('click', function() {
+        tweet = tweetLink + encodeURIComponent(tweetText);
+        window.open(tweet); 
+    });
 });
+
+        
+
+       
