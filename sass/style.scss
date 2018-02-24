@@ -19,6 +19,8 @@ h1 {
     font-family: 'Berkshire Swash', cursive;
     border: 1px dashed black;
     border-radius: 5px;
+    width: 500px;
+    margin: auto;
 }
 
 div { 
@@ -36,6 +38,7 @@ button {
     &:hover {
     background-color: white;
     color: black;
+    cursor: pointer;
     }
 }
 

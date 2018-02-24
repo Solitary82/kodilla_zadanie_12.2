@@ -4,7 +4,7 @@ $(document).ready(function() {
     var tweetText;
     var tweet;
     var tweetLink = "https://twitter.com/intent/tweet?text=";
-    var getURL = "http://api.forismatic.com/api/1.0/";
+    var getURL = "https://api.forismatic.com/api/1.0/";
 
     function getNewQuote() {
         $.ajax ({
