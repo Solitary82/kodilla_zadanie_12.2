@@ -35,7 +35,10 @@ $(document).ready(function() {
                     $('.tweet').attr('href', tweet);
                 }
             }
-        });        
+        });
+        $.ajaxSetup({ 
+            cache: false 
+        });
     }
     getNewQuote();
     $('.trigger').on('click', function() {
