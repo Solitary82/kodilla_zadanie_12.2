@@ -24,10 +24,6 @@ h1 {
     margin: auto;
 }
 
-div { 
-    text-align: center; 
-}
-
 button { 
     background-color: blue; 
     color: white; padding: 20px 40px; 

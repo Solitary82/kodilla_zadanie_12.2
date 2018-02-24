@@ -27,12 +27,7 @@ $(document).ready(function() {
                     getNewQuote();
                 } else {
                     $('.quote').text(quote);
-                    if (author) {
-                        $('.author').text(author);
-                    } else {
-                        $('.author').text(noAuthor);
-                    }
-                    $('.tweet').attr('href', tweet);
+                    $('.author').text(displayAuthor);
                 }
             }
         });
